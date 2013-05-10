@@ -5,10 +5,14 @@ socialite.js is a library to display social sharing buttons.
 
 check http://socialitejs.com/ and https://github.com/dbushell/Socialite  
 
-This rubygem is a shell over the socialite.js  
+This rubygem is a shell over the `socialite.js`  
 Its version will be the same as socialite.js and was created to:  
-1. make it easier to bundle socialite.js in Rails apps  
-2. release management. version and specify a specific version of socialite.js in your Rails apps  
+1. make it easier to bundle socialite.js in Rails apps. one step over manually copy-pasting js files  
+   can upgrade the gem to get a newer version of the js files.     
+2. release management. version and specify a specific version of socialite.js in your Rails apps.  
+3. other gems like `socialite_js` will integrate `socialite.js` in Ruby on Rails  
+   but can use the `socialite_js-source` gem seperately, if you only want the js files  
+   and want to integrate manually into your framework    
 
 #### Why does the gem name have dashes ? 
 
