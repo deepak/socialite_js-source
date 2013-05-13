@@ -33,6 +33,11 @@ module SocialiteJs
       it "does not have an attribute for a unsupported extension type" do
         lambda { @subject.foobar_extension_path }.must_raise(NoMethodError)
       end
+
+      it "responds to a supported extension type" do
+        @subject.respond_to?(:github_extension_path).must_equal true
+        @subject.respond_to?(:foo_extension_path).must_equal    false
+      end
     end
   end
 end

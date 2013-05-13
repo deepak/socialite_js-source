@@ -29,15 +29,34 @@ module SocialiteJs
        weibo
        icefy]
     end
-    
-    def self.method_missing(meth, *args, &block)
-      if (match = meth.to_s.match(/\A(?<extension_name>(.)+)_extension_path\z/)) &&
-          supported_extensions.include?(match['extension_name'])
-        # NOTE: not checking if the file actually exists. but checking
-        # from a master list of supported extensions
+
+    def self.respond_to?(method_sym, include_private = false)
+      if respond_to_socialite_extension? method_sym.to_s
+        true
+      else
+        super
+      end
+    end
+        
+    def self.method_missing(method_sym, *args, &block)
+      if match = respond_to_socialite_extension?(method_sym.to_s)
         "#{vendor_path}/extensions/socialite.#{match['extension_name']}.js"
       else
         super
+      end
+    end
+
+    protected
+    class << self
+      def respond_to_socialite_extension? method_str
+        # NOTE: not checking if the file actually exists. but checking
+        # from a master list of supported extensions
+        if (match = method_str.match(/\A(?<extension_name>(.)+)_extension_path\z/)) &&
+            supported_extensions.include?(match['extension_name'])
+          match
+        else
+          false
+        end
       end
     end
   end
